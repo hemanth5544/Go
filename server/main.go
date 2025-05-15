@@ -8,9 +8,11 @@ import (
 
 func main() {
 	fmt.Println("srever jinxx")
-	GetRequest()
+	// GetRequest()
+	PostRequest()
 
 }
+
 
 func GetRequest() {
 	const myurl = "https://monitra.webcookoo.com/api/wcse/2?url=https://datopic.ai"
@@ -33,7 +35,19 @@ func GetRequest() {
 	fmt.Println("my conten in stirng", string(content))
 }
 
+func PostRequest() {
+	url := "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/post"
 
-func PostRequest(){
-	
+	req, _ := http.NewRequest("POST", url, nil)
+
+	req.Header.Add("accept", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
