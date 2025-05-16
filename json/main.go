@@ -16,7 +16,8 @@ type course struct {
 func main() {
 	fmt.Println("json jinxx")
 
-	encodeJson()
+	// encodeJson()
+	DecodeJson()
 
 }
 
@@ -35,4 +36,30 @@ func encodeJson() {
 		panic(err)
 	}
 	fmt.Println("Json data is", string(jsonData))
+}
+
+func DecodeJson() {
+	jsonFromWeb := []byte(`
+		{
+			"name": "React JS",
+			"price": 299,
+			"platform": "Udemy",
+			"tags": ["web", "dev"]
+			}
+			
+			`)
+
+	var core course
+
+	checkValid := json.Valid(jsonFromWeb)
+
+	if checkValid {
+		fmt.Println("Json is valid")
+		json.Unmarshal(jsonFromWeb, &core)
+		fmt.Printf("Course name is %s and price is %d", core.Name, core.Price)
+
+	} else {
+		fmt.Println("Json is not valid")
+	}
+
 }
