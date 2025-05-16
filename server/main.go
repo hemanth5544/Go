@@ -4,15 +4,16 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 func main() {
 	fmt.Println("srever jinxx")
 	// GetRequest()
 	PostRequest()
+	// PerformFormPost()
 
 }
-
 
 func GetRequest() {
 	const myurl = "https://monitra.webcookoo.com/api/wcse/2?url=https://datopic.ai"
@@ -50,4 +51,23 @@ func PostRequest() {
 	fmt.Println(res)
 	fmt.Println(string(body))
 
+}
+
+func PerformFormPost() {
+	url := "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/post"
+
+	payload := strings.NewReader("name=John&age=30")
+
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("accept", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
 }
