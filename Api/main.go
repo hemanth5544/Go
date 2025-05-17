@@ -1,5 +1,10 @@
 package main
 
+import (
+	"encoding/json"
+	"net/http"
+)
+
 type Course struct {
 	CourseId    string  `json:"course_id"`
 	CourseName  string  `json:"course_name"`
@@ -22,5 +27,19 @@ func (c *Course) IsEmpty() bool {
 }
 
 func main() {
+
+	
+
+}
+
+// controller
+func serveHome(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("<h1>Welcome to the home page</h1>"))
+}
+
+func getAllCourses(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(courses)
 
 }
